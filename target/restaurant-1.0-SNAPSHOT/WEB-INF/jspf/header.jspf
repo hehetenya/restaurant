@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-sm navbar-static-top">
+    <div class="horizontal_navbar">
+        <ul>
+            <c:if test="${user.roleId != 2}">
+                <li><a href="${pageContext.request.contextPath}/menu">Menu</a></li>
+                <li><a href="${pageContext.request.contextPath}/cart">Cart</a> </li>
+                <li><a href="${pageContext.request.contextPath}/myOrders">My orders</a></li>
+
+            </c:if>
+            <c:if test="${user.roleId == 2}">
+                <li><a href="${pageContext.request.contextPath}/manageOrders">Orders</a></li>
+            </c:if>
+
+            <li style="float:right"><a href="${pageContext.request.contextPath}/login">Log out</a></li>
+        </ul>
+    </div>
+</nav>

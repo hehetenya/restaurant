@@ -1,0 +1,18 @@
+<jsp:useBean id="dish" type="com.epam.koval.restaurant.database.entity.Dish"/>
+<div class="dish_box">
+    <img src="${pageContext.request.contextPath}/images/${dish.id}.jpg"
+         class="dish_img"
+         alt="${dish.name}"/>
+    <div class="dish_text">
+        <p class="dish_name">${dish.name}</p>
+        <p class="dish_description">${dish.description}</p>
+        <p class="dish_weight">${dish.weight} g</p>
+        <p class="dish_price">${dish.price} UAH</p>
+        <form action="${pageContext.request.contextPath}/menu" method="post">
+            <input name="id" style="display: none" value="${dish.id}">
+            <input value="1" name="amount" style="display: none">
+            <input class="add-to-cart-button" type="submit"
+                       value="Add to cart">
+        </form>
+    </div>
+</div>
