@@ -18,6 +18,8 @@ Apache Tomcat was used as a servlet container.
 
 ## UI for clients
 ![logIn](https://cdn.discordapp.com/attachments/873196736997376063/981134646362390558/login.png)
+![menu](https://cdn.discordapp.com/attachments/873196736997376063/981267565982679071/menu.png)
+![cart](https://cdn.discordapp.com/attachments/873196736997376063/981266945674444891/cart.png)
 ![userOrders](https://cdn.discordapp.com/attachments/873196736997376063/981134331965755434/userOrders.png)
 ## UI for manager
 ![managerOrders](https://cdn.discordapp.com/attachments/873196736997376063/981134646584676412/managerOrders.png)
