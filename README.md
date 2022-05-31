@@ -13,6 +13,9 @@ The application architecture conforms MVC pattern.
 When implementing business logic were used design patterns: Singleton (for DBManager), Chain of Responsibility (HTTP Filters).
 Apache Tomcat was used as a servlet container.
 
+## Database schema
+![DBSchema](https://cdn.discordapp.com/attachments/873196736997376063/981141686480674826/schema.png)
+
 ## UI for clients
 ![logIn](https://cdn.discordapp.com/attachments/873196736997376063/981134646362390558/login.png)
 ![userOrders](https://cdn.discordapp.com/attachments/873196736997376063/981134331965755434/userOrders.png)
