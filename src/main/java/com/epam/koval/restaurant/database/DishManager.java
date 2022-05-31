@@ -15,6 +15,12 @@ import java.util.stream.Collectors;
 
 public class DishManager {
 
+    /**
+     * Creates new dish object using data from database about a dish by its id.
+     * @param id dish's id
+     * @return an object of dish
+     * @throws DBException if any SQLException was caught
+     */
     public static Dish getDishByID(int id) throws DBException{
         Dish dish;
         try(Connection con = DBManager.getInstance().getConnection();
@@ -37,6 +43,11 @@ public class DishManager {
         }
     }
 
+    /**
+     * Creates new list of dishes using data from database.
+     * @return list of all dishes in menu
+     * @throws DBException if any SQLException was caught
+     */
     public static List<Dish> getAllDishes() throws DBException {
         List<Dish> dishes = new ArrayList<>();
         try(Connection con = DBManager.getInstance().getConnection();
@@ -51,6 +62,12 @@ public class DishManager {
         return dishes;
     }
 
+    /**
+     * Filters dish data received from database by dish category.
+     * @param category category by which it filters dishes from menu
+     * @return list of dishes of a certain category
+     * @throws DBException if any SQLException was caught
+     */
     public static List<Dish> getDishesByCategory(String category) throws DBException {
         List<Dish> allDishes = getAllDishes();
         return allDishes.stream()
@@ -58,6 +75,12 @@ public class DishManager {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Sorts list of dishes by a chosen sorting method.
+     * @param dishes list of dishes that needs to be sorted
+     * @param sortBy sorting method
+     * @return list of sorted dishes
+     */
     public static List<Dish> sortBy(List<Dish> dishes, String sortBy) {
         if(sortBy.equalsIgnoreCase("price")){
             dishes = dishes.stream()
@@ -75,6 +98,13 @@ public class DishManager {
         return dishes;
     }
 
+    /**
+     * Creates a sublist from a given list of dishes that will display into a certain page.
+     * There can be max 10 dishes on page.
+     * @param dishes list of dishes
+     * @param currentPage a number of page on which dishes should be displayed
+     * @return sublist of a given list of dishes
+     */
     public static List<Dish> getDishesOnPage(List<Dish> dishes, int currentPage) {
         int begin = (currentPage-1)*10;
         if(dishes.size()>0 && dishes.size() < begin+10){

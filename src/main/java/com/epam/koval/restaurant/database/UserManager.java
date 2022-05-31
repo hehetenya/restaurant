@@ -10,13 +10,18 @@ import java.sql.SQLException;
 
 public class UserManager {
 
+    /**
+     * Creates a new User object with data from a database extracted by user's login.
+     * @param login login of a user
+     * @return new User object
+     * @throws DBException if any SQLException was caught
+     */
     public static User getUserByLogin(String login) throws DBException {
         try(Connection con = DBManager.getInstance().getConnection();
             PreparedStatement ps = con.prepareStatement(DBManager.FIND_USER_BY_LOGIN)){
             ps.setString(1, login);
             try(ResultSet rs = ps.executeQuery()){
                 if(rs.next()){
-                    System.out.println("returning user by login");
                     return createUser(rs);
                 } else{
                     return null;
@@ -27,6 +32,13 @@ public class UserManager {
         }
     }
 
+    /**
+     * Inserts data about new user into a database and returns a User object.
+     * @param login user's login
+     * @param password user's password
+     * @return a User object
+     * @throws DBException if any SQLException was caught
+     */
     public static User signUp(String login, String password) throws DBException {
         Connection con = null;
         PreparedStatement ps = null;
@@ -48,9 +60,16 @@ public class UserManager {
             DBManager.close(con);
             DBManager.close(ps);
         }
-
     }
 
+    /**
+     * Checks if user with such login and password exists in database and if so
+     * creates a new User object from a result set.
+     * @param login user's login
+     * @param password user's password
+     * @return a User object
+     * @throws DBException if any SQLException was caught
+     */
     public static User logIn(String login, String password) throws DBException {
         try (Connection con = DBManager.getInstance().getConnection();
              PreparedStatement ps = con.prepareStatement(DBManager.LOG_IN)){
@@ -73,13 +92,18 @@ public class UserManager {
         return new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
     }
 
+    /**
+     * Extracts data about a user by their id from database.
+     * @param id user's id
+     * @return a User object
+     * @throws DBException if any SQLException was caught
+     */
     public static User getUserById(int id) throws DBException{
         try(Connection con = DBManager.getInstance().getConnection();
             PreparedStatement ps = con.prepareStatement(DBManager.FIND_USER_BY_ID)){
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
                 if(rs.next()){
-                    System.out.println("Returning user in getUserById");
                     return createUser(rs);
                 } else{
                     return null;

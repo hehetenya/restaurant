@@ -66,6 +66,4 @@ public class Receipt {
             total += (d.getPrice() * dishes.get(d));
         }
     }
-
-
 }

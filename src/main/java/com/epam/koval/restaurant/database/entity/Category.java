@@ -25,9 +25,7 @@ public enum Category {
         return null;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
     public int getId() {
         return id;

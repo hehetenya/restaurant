@@ -23,7 +23,6 @@ public enum Status {
     public static Status getStatusById(int id){
         for (Status s: values()) {
             if(s.id == id){
-                System.out.println("returning status");
                 return s;
             }
         }
@@ -33,11 +32,9 @@ public enum Status {
     public static Status getStatusByName(String name){
         for (Status s: values()) {
             if(s.name.equals(name)){
-                System.out.println("returning status");
                 return s;
             }
         }
         return null;
     }
-
 }
