@@ -14,6 +14,7 @@ When implementing business logic were used design patterns: Singleton (for DBMan
 Apache Tomcat was used as a servlet container.
 
 ## UI for clients
-
+![logIn](https://cdn.discordapp.com/attachments/873196736997376063/981134646362390558/login.png)
+![userOrders](https://cdn.discordapp.com/attachments/873196736997376063/981134331965755434/userOrders.png)
 ## UI for manager
-![managerOrders](https://prnt.sc/Z8vCMcvxaFi-)
+![managerOrders](https://cdn.discordapp.com/attachments/873196736997376063/981134646584676412/managerOrders.png)
