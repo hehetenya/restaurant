@@ -12,6 +12,8 @@ JDBC API was used to access the data.
 The application architecture conforms MVC pattern.
 When implementing business logic were used design patterns: Singleton (for DBManager), Chain of Responsibility (HTTP Filters).
 Apache Tomcat was used as a servlet container.
+
 ## UI for clients
 
 ## UI for manager
+![managerOrders](https://prnt.sc/Z8vCMcvxaFi-)
