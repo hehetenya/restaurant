@@ -6,7 +6,10 @@ import com.epam.koval.restaurant.database.ReceiptManager;
 import com.epam.koval.restaurant.database.entity.Dish;
 import com.epam.koval.restaurant.database.entity.Receipt;
 import com.epam.koval.restaurant.database.entity.User;
+import com.epam.koval.restaurant.exeptions.AppException;
 import com.epam.koval.restaurant.exeptions.DBException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,6 +20,9 @@ import java.util.Map;
 
 @WebServlet("/myOrders")
 public class ClientOrdersServlet extends HttpServlet {
+
+    private static final Logger log = LogManager.getLogger(ClientOrdersServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -30,20 +36,20 @@ public class ClientOrdersServlet extends HttpServlet {
             if(receipts.size()>0){
                 int maxPage = ReceiptManager.countMaxPage(receipts.size());
                 receipts = ReceiptManager.getReceiptsOnPage(receipts, currentPage);
-                System.out.println("current page == " + currentPage);
-                System.out.println("receipts == " + receipts);
+                log.trace("current page == " + currentPage);
+                log.trace("receipts == " + receipts);
                 session.setAttribute("maxPage", maxPage);
             }
             session.setAttribute("receipts", receipts);
-            System.out.println(receipts);
             request.getRequestDispatcher("/WEB-INF/jsp/client-orders.jsp").forward(request, response);
         } catch(DBException ex){
-            ex.printStackTrace();
+            log.error("In client orders servlet doGet() ", ex);
+            throw new AppException(ex);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         Map<Dish, Integer> cart = (Map<Dish, Integer>) session.getAttribute("cart");
@@ -51,9 +57,9 @@ public class ClientOrdersServlet extends HttpServlet {
             CartManager.submitOrder(user.getId(), cart);
             CartManager.cleanCart(user.getId());
         }catch (DBException ex){
-            ex.printStackTrace();
+            log.error("In client orders servlet doPost() ", ex);
+            throw new AppException(ex);
         }
-        //request.getRequestDispatcher(request.getContextPath() + "/myOrders").forward(request, response);
         response.sendRedirect(request.getContextPath() + "/myOrders");
     }
 }

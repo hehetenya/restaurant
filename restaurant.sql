@@ -151,8 +151,6 @@ CREATE TABLE IF NOT EXISTS cart (
 	INSERT INTO dish (name, category_id, price, weight, description)
 		VALUE ("BBQ Americano pizza", 1, 134, 450, "BBQ base, mozzarella, loads of chicken, bacon, sweetcorn & BBQ drizzle");
 	INSERT INTO dish (name, category_id, price, weight, description)
-		VALUE ("Vegan Hot'N'Spicy pizza", 1, 122, 450, "Tomato base, vegan ch**se, mushrooms, peppers, red onions & Jalapeños");
-	INSERT INTO dish (name, category_id, price, weight, description)
 		VALUE ("Strawberry-Banana smoothie", 4, 64, 400, "The classic strawberry banana smoothie is hard to beat. It’s sweet, it’s fresh, it’s good for you, and it’s always tasty.");
      INSERT INTO dish (name, category_id, price, weight, description)
 		VALUE ("Mojito lemonade", 4, 49, 400, "Lemon, lime, and mint? The most refreshing flavors of the summer! And you get them all in this delicious Mojito lemonade.");

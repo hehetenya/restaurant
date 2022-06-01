@@ -1,6 +1,8 @@
 package com.epam.koval.restaurant.database;
 
 import com.epam.koval.restaurant.exeptions.AppException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -11,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Savepoint;
 
 public class DBManager {
+
+    private static final Logger log = LogManager.getLogger(DBManager.class);
 
     public static final String LOG_IN = "SELECT * FROM user WHERE login LIKE ? AND password LIKE ?";
     public static final String SIGN_UP = "INSERT INTO user (login, password) VALUE (?, ?)";
@@ -46,11 +50,14 @@ public class DBManager {
 
     private DBManager() {
         try {
+            log.debug("In DBManager constructor");
             Context initContext = new InitialContext();
             Context envContext = (Context) initContext.lookup("java:/comp/env");
             ds = (DataSource) envContext.lookup("jdbc/restaurant");
-        } catch (NamingException e) {
-            throw new AppException("Cannot init DBManager");
+            log.trace("ds ==> " + ds);
+        } catch (NamingException ex) {
+            log.error("Cannot init DBManager", ex);
+            throw new AppException("Cannot init DBManager", ex);
         }
     }
 

@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class DishManager {
 
+
     /**
      * Creates new dish object using data from database about a dish by its id.
      * @param id dish's id

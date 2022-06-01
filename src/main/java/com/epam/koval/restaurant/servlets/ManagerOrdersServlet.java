@@ -6,6 +6,8 @@ import com.epam.koval.restaurant.database.entity.Status;
 import com.epam.koval.restaurant.database.entity.User;
 import com.epam.koval.restaurant.exeptions.AppException;
 import com.epam.koval.restaurant.exeptions.DBException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,6 +17,9 @@ import java.util.List;
 
 @WebServlet("/manageOrders")
 public class ManagerOrdersServlet extends HttpServlet {
+
+    private static final Logger log = LogManager.getLogger(ManagerOrdersServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -28,12 +33,13 @@ public class ManagerOrdersServlet extends HttpServlet {
             receipts = ReceiptManager.getAllReceipts();
             int maxPage = ReceiptManager.countMaxPage(receipts.size());
             receipts = ReceiptManager.getReceiptsOnPage(receipts, currentPage);
-            System.out.println("current page == " + currentPage);
-            System.out.println("receipts == " + receipts);
+            log.trace("current page == " + currentPage);
+            log.trace("receipts == " + receipts);
             session.setAttribute("maxPage", maxPage);
             session.setAttribute("receipts", receipts);
             request.getRequestDispatcher("/WEB-INF/jsp/manager-orders.jsp").forward(request, response);
         } catch(DBException ex){
+            log.error("In manager orders servlet doGet() ", ex);
             throw new AppException(ex);
         }
     }
@@ -46,6 +52,7 @@ public class ManagerOrdersServlet extends HttpServlet {
         try{
             ReceiptManager.changeStatus(receiptId, Status.getStatusByName(newStatus));
         }catch (DBException ex){
+            log.error("In manager orders servlet doPost() ", ex);
             throw new AppException(ex);
         }
         response.sendRedirect(request.getContextPath() + "/manageOrders");

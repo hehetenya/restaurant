@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ReceiptManager {
+
     /**
      * Extracts data about all receipts that exist in a database
      * @return list of receipts from a database
