@@ -119,6 +119,15 @@ li a {
     font-size: 24px;
 }
 
+li p{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 9px 16px;
+    text-decoration: none;
+    font-size: 12px;
+}
+
 li a:hover {
     background-color: #111;
 }

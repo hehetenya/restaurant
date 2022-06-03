@@ -10,8 +10,8 @@
             <c:if test="${user.roleId == 2}">
                 <li><a href="${pageContext.request.contextPath}/manageOrders">Orders</a></li>
             </c:if>
-
             <li style="float:right"><a href="${pageContext.request.contextPath}/login">Log out</a></li>
+            <li style="float:right"><p><mylib:greeting user="${user}"/></p></li>
         </ul>
     </div>
 </nav>
