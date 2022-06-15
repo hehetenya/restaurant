@@ -19,8 +19,8 @@ public class DBManager {
     public static final String LOG_IN = "SELECT * FROM user WHERE login LIKE ? AND password LIKE ?";
     public static final String SIGN_UP = "INSERT INTO user (login, password) VALUE (?, ?)";
 
-    public static final String FIND_USER_BY_ID = "SELECT * FROM user WHERE id = ?";
-    public static final String FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?";
+    public static final String GET_USER_BY_ID = "SELECT * FROM user WHERE id = ?";
+    public static final String GET_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?";
 
     public static final String GET_ALL_DISHES = "SELECT * FROM dish";
     public static final String GET_DISH_BY_ID = "SELECT * FROM dish WHERE id = ?";
@@ -28,7 +28,7 @@ public class DBManager {
     public static final String GET_ALL_RECEIPTS = "SELECT * FROM receipt ORDER BY create_date DESC";
     public static final String GET_RECEIPTS_BY_USER_ID = "SELECT * FROM receipt WHERE user_id LIKE ? ORDER BY create_date DESC";
     public static final String CHANGE_RECEIPT_STATUS = "UPDATE receipt SET status_id = ? WHERE id = ?";
-    public static final String FIND_DISHES_BY_RECEIPT_ID = "SELECT * FROM receipt_has_dish WHERE receipt_id LIKE ?";
+    public static final String GET_DISHES_BY_RECEIPT_ID = "SELECT * FROM receipt_has_dish WHERE receipt_id LIKE ?";
     public static final String CREATE_NEW_RECEIPT_BY_USER_ID = "INSERT INTO receipt (user_id) VALUE (?)";
     public static final String PUT_DISH_INTO_RECEIPT = "INSERT INTO receipt_has_dish (receipt_id, dish_id, amount) VALUE (?, ?, ?)";
 

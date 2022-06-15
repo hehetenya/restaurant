@@ -32,20 +32,20 @@
                 <td>${receipt.id}</td>
                 <td>${receipt.user.id}</td>
                 <td>${receipt.status}
-                        <form method="post" action="${pageContext.request.contextPath}/manageOrders">
-                            <div class="edit-status">
-                                    <button class="edit-button">Edit</button>
-                                    <div class="status-content">
-                                        <input value="${receipt.id}" name="id" style="display: none">
-                                        <input type="submit" name="status" value="New">
-                                        <input type="submit" name="status" value="Approved">
-                                        <input type="submit" name="status" value="Cancelled">
-                                        <input type="submit" name="status" value="Cooking">
-                                        <input type="submit" name="status" value="Delivering">
-                                        <input type="submit" name="status" value="Received">
-                                    </div>
-                            </div>
-                        </form>
+
+                    <form class="menu_filter_sort" method="post" action="${pageContext.request.contextPath}/manageOrders">
+                        <select  id="status" name="status">
+                            <option value="New">New</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Cooking">Cooking</option>
+                            <option value="Delivering">Delivering</option>
+                            <option value="Received">Received</option>
+                        </select>
+                        <input value="${receipt.id}" name="id" style="display: none">
+                        <input class="manager-orders-apply" type="submit" value="Apply">
+
+                    </form>
                 </td>
                 <td>
                     <c:forEach items="${receipt.dishes}" var="dishAndAmount">

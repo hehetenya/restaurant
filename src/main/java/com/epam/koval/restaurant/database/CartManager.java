@@ -40,12 +40,8 @@ public class CartManager {
      * @throws DBException if any SQLException was caught
      */
     public static void addDishToCart(int userId, int dishId, int amount) throws DBException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = DBManager.getInstance().getConnection();
-            con.setAutoCommit(false);
-            ps = con.prepareStatement(DBManager.PUT_DISH_INTO_CART);
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement ps = con.prepareStatement(DBManager.PUT_DISH_INTO_CART)){
             int k = 0;
             ps.setInt(++k, userId);
             ps.setInt(++k, dishId);
@@ -53,13 +49,8 @@ public class CartManager {
             if (ps.executeUpdate() == 0) {
                 throw new DBException("Inserting failed");
             }
-            con.commit();
         } catch (SQLException ex) {
-            if (con != null) DBManager.rollback(con);
             throw new DBException("Cannot add dish to cart", ex);
-        } finally {
-            DBManager.close(con);
-            DBManager.close(ps);
         }
     }
 
@@ -71,12 +62,8 @@ public class CartManager {
      * @throws DBException if any SQLException was caught
      */
     public static void changeAmountOfDish(int userId, int dishId, int amount) throws DBException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = DBManager.getInstance().getConnection();
-            con.setAutoCommit(false);
-            ps = con.prepareStatement(DBManager.UPDATE_DISH_AMOUNT_IN_CART);
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement ps = con.prepareStatement(DBManager.UPDATE_DISH_AMOUNT_IN_CART)) {
             int k = 0;
             ps.setInt(++k, amount);
             ps.setInt(++k, userId);
@@ -84,13 +71,8 @@ public class CartManager {
             if (ps.executeUpdate() == 0) {
                 throw new DBException("Inserting failed");
             }
-            con.commit();
         } catch (SQLException ex) {
-            if (con != null) DBManager.rollback(con);
             throw new DBException("Cannot update dish amount in cart", ex);
-        } finally {
-            DBManager.close(con);
-            DBManager.close(ps);
         }
     }
 
@@ -101,25 +83,16 @@ public class CartManager {
      * @throws DBException if any SQLException was caught
      */
     public static void deleteDishFromCart(int userId, int dishId) throws DBException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = DBManager.getInstance().getConnection();
-            con.setAutoCommit(false);
-            ps = con.prepareStatement(DBManager.DELETE_DISH_FROM_CART);
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement ps = con.prepareStatement(DBManager.DELETE_DISH_FROM_CART)){
             int k = 0;
             ps.setInt(++k, userId);
             ps.setInt(++k, dishId);
             if (ps.executeUpdate() == 0) {
                 throw new DBException("Deleting failed");
             }
-            con.commit();
         } catch (SQLException ex) {
-            if (con != null) DBManager.rollback(con);
             throw new DBException("Cannot delete dish from cart", ex);
-        } finally {
-            DBManager.close(con);
-            DBManager.close(ps);
         }
     }
 

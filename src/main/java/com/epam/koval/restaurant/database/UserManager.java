@@ -18,7 +18,7 @@ public class UserManager {
      */
     public static User getUserByLogin(String login) throws DBException {
         try(Connection con = DBManager.getInstance().getConnection();
-            PreparedStatement ps = con.prepareStatement(DBManager.FIND_USER_BY_LOGIN)){
+            PreparedStatement ps = con.prepareStatement(DBManager.GET_USER_BY_LOGIN)){
             ps.setString(1, login);
             try(ResultSet rs = ps.executeQuery()){
                 if(rs.next()){
@@ -40,25 +40,17 @@ public class UserManager {
      * @throws DBException if any SQLException was caught
      */
     public static User signUp(String login, String password) throws DBException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try{
-            con = DBManager.getInstance().getConnection();
-            ps = con.prepareStatement(DBManager.SIGN_UP);
+        try(Connection con = DBManager.getInstance().getConnection();
+            PreparedStatement ps = con.prepareStatement(DBManager.SIGN_UP)){
             int k = 0;
             ps.setString(++k, login);
             ps.setString(++k, password);
             if(ps.executeUpdate() == 0){
                 throw new DBException("Sign up failed");
             }
-            con.commit();
             return getUserByLogin(login);
         }catch (SQLException ex){
-            if(con != null) DBManager.rollback(con);
             throw new DBException("Cannot signup", ex);
-        }finally {
-            DBManager.close(con);
-            DBManager.close(ps);
         }
     }
 
@@ -100,7 +92,7 @@ public class UserManager {
      */
     public static User getUserById(int id) throws DBException{
         try(Connection con = DBManager.getInstance().getConnection();
-            PreparedStatement ps = con.prepareStatement(DBManager.FIND_USER_BY_ID)){
+            PreparedStatement ps = con.prepareStatement(DBManager.GET_USER_BY_ID)){
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
                 if(rs.next()){
